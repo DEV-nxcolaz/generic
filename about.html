@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Amo!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="img/coracaofeio.png" type="image/png">
+    <link rel="stylesheet" href="./style/about.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="spotify-player">
+            <iframe src="https://open.spotify.com/embed/track/12G0KiYRpmpDOrube9GCa5?si=82964e2f3d1b4d92" width="100%"
+                height="80" frameborder="0" allowtransparency="true" allow="encrypted-media">
+            </iframe>
+            <div id="overlay">
+                <button id="playBtn">Ativar Música</button>
+            </div>
+        </div>
+
+        <div class="carrossel-container">
+            <div class="carrossel">
+                <div class="slide">
+                    <img src="./img/1.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/2.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/3.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/4.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/5.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/6.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/7.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/8.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/9.jpg" alt="Foto do casal">
+                </div>
+                <div class="slide">
+                    <img src="./img/10.jpg" alt="Foto do casal">
+                </div>
+            </div>
+        </div>
+
+        <div class="message-box">
+            <div class="message-title">❤️ Eu te amo há: ❤️</div>
+            <div id="timer" class="timer"></div>
+            <p class="message-text">
+                Meu amor,
+
+                Sabe aqueles dias em que o mundo parece cinza, sem graça, e a gente só quer um refúgio? Pois é. Para
+                mim, esse refúgio sempre foi você. Não importa onde eu esteja ou o que esteja acontecendo ao meu redor,
+                é no seu sorriso que eu encontro paz, é no brilho do seu olhar que eu vejo a luz que ilumina meus
+                caminhos mais escuros.
+
+                Desde que você entrou na minha vida, tudo ganhou um novo significado. As pequenas coisas, como ouvir sua
+                risada ou sentir o calor do seu abraço, se tornaram os momentos mais preciosos do meu dia. Você me
+                mostrou o que é o amor de verdade: um sentimento que acolhe, que fortalece e que transforma. É uma paz
+                que invade a alma e, ao mesmo tempo, uma alegria que faz o coração disparar. Eu te amo muito. 🤍
+            </p>
+        </div>
+        <audio id="bgMusic" loop playsinline>
+            <source src="./img/Ana_Castela_ft_GustavoMioto_-_Fronteira_Feliztu.com.com.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+            // Tamanho aleatório
+            const size = Math.random() * 20 + 10;
+            heart.style.fontSize = `${size}px`;
+
+            // Posição inicial
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.top = `-50px`;
+
+            // Duração da animação
+            const duration = Math.random() * 3 + 2;
+            heart.style.animationDuration = `${duration}s`;
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+                createHeart();
+            }, duration * 1000);
+        }
+
+        // Criar vários corações
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createHeart, i * 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const carrossel = document.querySelector('.carrossel');
+            const slides = document.querySelectorAll('.slide');
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            // Função para mudar de slide
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                carrossel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+
+            // Inicia o autoplay (muda a cada 4 segundos)
+            let autoplay = setInterval(nextSlide, 4000);
+
+            // Pausa quando o mouse está em cima
+            const container = document.querySelector('.carrossel-container');
+            container.addEventListener('mouseenter', () => clearInterval(autoplay));
+            container.addEventListener('mouseleave', () => {
+                autoplay = setInterval(nextSlide, 4000);
+            });
+        });
+
+        const overlay = document.getElementById('overlay');
+        const playBtn = document.getElementById('playBtn');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Tenta autoplay (funciona em alguns navegadores)
+        bgMusic.play().catch(e => {
+            console.log('Aguardando interação do usuário...');
+        });
+
+        // Quando o usuário clica no botão
+        playBtn.addEventListener('click', () => {
+            bgMusic.play()
+                .then(() => {
+                    overlay.style.display = 'none';
+                })
+                .catch(e => {
+                    alert('Não foi possível iniciar a música. Tente novamente.');
+                });
+        });
+
+        // Se após 5 segundos o usuário não clicou, esconde o overlay
+        setTimeout(() => {
+            if (!bgMusic.paused) return;
+            overlay.innerHTML = '<p>Toque em qualquer lugar para ativar a música</p>';
+            document.body.addEventListener('click', () => {
+                bgMusic.play();
+                overlay.style.display = 'none';
+            }, { once: true });
+        }, 5000);
+
+        // Inicializa tudo quando a página carrega
+        document.addEventListener('DOMContentLoaded', function () {
+            updateTimer();
+            setInterval(updateTimer, 1000); // Atualiza o timer a cada segundo
+            setupCarousel();
+        });
+
+        // Função do timer de namoro
+        function updateTimer() {
+            const startDate = new Date('2024-09-22T02:10:00');
+            const now = new Date();
+
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+
+            // Ajusta se o dia ainda não chegou no mês
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            // Ajusta se o mês ainda não chegou
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Calcula horas, minutos e segundos
+            const diff = now - startDate;
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            let timeString = '';
+            if (years > 0) timeString += `${years} ano${years > 1 ? 's' : ''}, `;
+            if (months > 0) timeString += `${months} mês${months > 1 ? 'es' : ''}, `;
+            timeString += `${days} dia${days !== 1 ? 's' : ''}, ${hours} hora${hours !== 1 ? 's' : ''}, ${minutes} minuto${minutes !== 1 ? 's' : ''} e ${seconds} segundo${seconds !== 1 ? 's' : ''}`;
+
+            document.getElementById('timer').textContent = timeString;
+        }
+
+    </script>
+
+    </header>
+</body>
+
+</html>
