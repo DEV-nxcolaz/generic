@@ -1,4 +1,4 @@
-@import url(../style/chuvadecoraçao.css);
+@import url(./chuvadecoraçao.css);
 
 
 :root{
@@ -74,6 +74,9 @@ h1 {
 .slide {
     min-width: 100%;
     height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .slide img {
@@ -172,8 +175,8 @@ h1 {
     
     .carrossel-container {
         display: flex;
-        height: 28rem;
-        width: 22rem;
+        height: 25rem;
+        width: 100%;
         align-items: center;
         justify-content: center;
         margin: 1rem;
@@ -199,7 +202,7 @@ h1 {
     
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 480px) {
 
     .container {
         align-items: center;
@@ -209,11 +212,11 @@ h1 {
     
     .carrossel-container {
         display: flex;
-        height:15rem;
-        width: 13rem;
+        height: 18rem;
+        width: 90%;
         align-items: center;
         justify-content: center;
-        margin: 1rem;
+        margin: 1rem auto;
     }
     
     h1 {
